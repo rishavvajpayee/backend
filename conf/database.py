@@ -24,4 +24,4 @@ class Config:
         os.getenv('POSTGRES_PORT'),
         os.getenv('POSTGRES_DB')
     )
-    engine = create_engine(SQLALCHEMY_DATABASE_URI,pool_pre_ping=True, poolclass=NullPool)
+    engine = create_engine(SQLALCHEMY_DATABASE_URI, poolclass=NullPool)

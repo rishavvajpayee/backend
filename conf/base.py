@@ -13,14 +13,14 @@ Session = sessionmaker(bind=Config.engine, autoflush=False)
 #session = Session()
 base = declarative_base()
 
-class Status(enum.Enum):
+class EnumStatus(enum.Enum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
     SUSPEND = "SUSPEND"
 
 class Base(base):
     __abstract__ = True
-    status = Column(Enum(Status), server_default="ACTIVE")
+    status = Column(Enum(EnumStatus), server_default="ACTIVE")
     created_on = Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow,
                         server_default=text('NOW()'))
     updated_on = Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow,
