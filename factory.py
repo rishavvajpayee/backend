@@ -7,13 +7,13 @@ BLUEPRINT IMPORTS :
 """
 from api.rest.login import LOGIN_BLUEPRINT
 
-
 def create_app():
     """
     Construct the main application
     """
-    app = Flask(__name__, instance_relative_config = True)
+    app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(Config)
-    flask_scoped_session(Session)
+    flask_scoped_session(Session, app)
+
     app.register_blueprint(LOGIN_BLUEPRINT)
     return app

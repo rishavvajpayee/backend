@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from factory import create_app
 from flask_cors import CORS
-from api.db.login_db import User, OTP
 
 app = create_app()
 app.config['CORS_METHODS'] = Config.CORS_METHODS
@@ -14,7 +13,6 @@ CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI
 
 db = SQLAlchemy(app)
-# db.init_app(app)
 migrate = Migrate(app, db)
 
 if __name__ == '__main__' :
