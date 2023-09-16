@@ -6,7 +6,7 @@ from sqlalchemy.pool import NullPool
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 dotenv_path = join(dirname(__file__), '.env')  # path for .env file
-load_dotenv(dotenv_path)
+load_dotenv()
 
 class Config:
     DEBUG = True if os.getenv('DEBUG') == 'True' else False
@@ -24,4 +24,5 @@ class Config:
         os.getenv('POSTGRES_PORT'),
         os.getenv('POSTGRES_DB')
     )
+    print("SQLALCHEMY : ", SQLALCHEMY_DATABASE_URI)
     engine = create_engine(SQLALCHEMY_DATABASE_URI,pool_pre_ping=True, poolclass=NullPool)
