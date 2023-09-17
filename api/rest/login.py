@@ -5,13 +5,32 @@ from utils.responses import Responses
 """
 IMPORT DOMAIN FUNCTIONS :
 """
-from api.domain.login_domain import login, otp_verify
+from api.domain.onboarding_domain import login, otp_verify, signup
 
 
 LOGIN_BLUEPRINT = Blueprint('login', __name__, url_prefix='/api/v1/')
 
+@LOGIN_BLUEPRINT.route('signup', methods=['POST'])
+def post_signup():
+    code, message, result = signup()
+
+    if code == 200:
+        return Responses.success(
+                                code=common['SUCCESS'],
+                                alert_msg_description=message,
+                                alert_msg_type=common["SUCCESS_ALERT"],
+                                result=result
+                            )
+    else:
+        return Responses.failure(
+                                code=common['FAILURE'],
+                                alert_msg_description=message,
+                                alert_msg_type=common["FAILURE_ALERT"],
+                                result=result
+                            )
+
 @LOGIN_BLUEPRINT.route('login', methods=['POST'])
-def basic():
+def post_login():
     code, message, result = login()
 
     if code == 200:

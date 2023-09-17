@@ -2,8 +2,16 @@ import random
 from flask_sqlalchemy_session import current_session as session
 from flask import g, request
 from constants import common
-from api.db.login_db import Otp, Users
+from api.db.login_db import Otp, User
 import uuid
+
+def signup():
+    try:
+        ...
+    
+    except Exception as e:
+        return 400, "BAD_REQUEST", str(e)
+
 def login():
     try:
         data = request.json
@@ -15,7 +23,7 @@ def login():
             otp =  random.randint(1000, 9999)
             user_id = uuid.uuid4()
             print(user_id)
-            user_db = Users(
+            user_db = User(
                 user_id=user_id,
                 phone_number=phone_number
             )
@@ -36,17 +44,21 @@ def login():
             "password": password
         }
     except Exception as e:
-        return 400, "BAD_REQUEST", str(e)
+        return 400, "LOGIN FAILED", str(e)
 
 def otp_verify():
     data = request.json
     otp= data.get("otp", None)
+    try:
 
-    otp_db = session.query(otp).filter(Otp.user_id=="test").first()
-    if otp_db:
-        if otp_db.otp == otp:
-            return 200, common["SUCCESS"], {"otp": otp}
-        else:
-            return 400, "BAD_REQUEST", {}
-    
+        otp_db = session.query(otp).filter(Otp.user_id=="test").first()
+        if otp_db:
+            if otp_db.otp == otp:
+                return 200, common["SUCCESS"], {"otp": otp}
+            else:
+                return 400, "BAD_REQUEST", {}
+            
+    except Exception as e:
+        return 400, "OTP VERIFICATION FAILED", str(e)
+        
     
