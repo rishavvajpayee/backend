@@ -2,10 +2,12 @@ from flask import Flask
 from conf.database import Config
 from conf.base import Session
 from flask_sqlalchemy_session import flask_scoped_session
+
 """
 BLUEPRINT IMPORTS :
 """
 from api.rest.login import LOGIN_BLUEPRINT
+
 
 def create_app():
     """
